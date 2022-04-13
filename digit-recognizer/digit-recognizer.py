@@ -19,6 +19,7 @@ x_train, x_test, y_train ,y_test = train_test_split(x,y,test_size=0.2)
 
 model = Sequential()
 
+# need to reaserch what layers and activation functions to use
 model.add(Dense(64,activation='sigmoid'))
 model.add(Dense(32,activation='relu'))
 model.add(Dense(10,activation='softmax'))
