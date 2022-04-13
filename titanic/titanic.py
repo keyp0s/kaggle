@@ -1,14 +1,15 @@
-# Data analysis libraries
+# data analysis libraries
 import pandas as pd
 
-# Visualization libraries
+# visualization libraries
 import matplotlib.pyplot as plt
 
-from sklearn.model_selection import train_test_split
+# ml framework
 from sklearn.linear_model import LogisticRegression
 
-# Kaggle Titanic - Machine Learning from Disaster Submission
-# Training and testing data can be found here https://www.kaggle.com/competitions/titanic/data
+# kaggle titanic - machine learning from disaster submission
+# training and testing data can be found here https://www.kaggle.com/competitions/titanic/data
+# my first kaggle submission, at time of submitting scores 0.76794% accuracy (much room for improvement)
 
 train = pd.read_csv("C:/repos/kaggle-comps/titanic/train.csv")
 test = pd.read_csv("C:/repos/kaggle-comps/titanic/test.csv")
@@ -29,12 +30,21 @@ def clean(data):
     return data
 
 train = clean(train)
+test_train = clean(test)
 
-predictors = train.drop(['Survived'], axis=1)
-target = train["Survived"]
+x_train = train.drop(['Survived'], axis=1)
+y_train = train["Survived"]
 
-x_train, x_val, y_train, y_val = train_test_split(predictors, target, test_size = 0.20, random_state = 0)
+x_test = test_train
 
 logModel = LogisticRegression()
 logModel.fit(x_train, y_train)
-print(logModel.score(x_train, y_train))
+acc = (logModel.score(x_train,y_train))
+
+y_pred = logModel.predict(x_test)
+
+submit = pd.DataFrame({"PassengerId":test["PassengerId"], "Survived": y_pred})
+
+# line below saves output to csv
+# submit.to_csv("submit.csv", index=False)
+print(submit.head(10))
