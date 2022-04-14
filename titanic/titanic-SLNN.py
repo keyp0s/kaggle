@@ -1,15 +1,6 @@
-# data analysis libraries
 import pandas as pd
-
-# visualization libraries
 import matplotlib.pyplot as plt
-
-# ml framework
 from sklearn.linear_model import LogisticRegression
-
-# kaggle titanic - machine learning from disaster submission
-# training and testing data can be found here https://www.kaggle.com/competitions/titanic/data
-# my first kaggle submission, at time of submitting scores 0.76794% accuracy (much room for improvement)
 
 train = pd.read_csv("C:/repos/kaggle-comps/titanic/train.csv")
 test = pd.read_csv("C:/repos/kaggle-comps/titanic/test.csv")
@@ -17,7 +8,7 @@ test = pd.read_csv("C:/repos/kaggle-comps/titanic/test.csv")
 sex = {"female": 0, "male": 1}
 embarked = {"C": 0, "Q": 1,"S": 2, "U": 3}
 
-def clean(data):
+def clean_data(data):
     data = data.drop(["Ticket", "Cabin", "Name", "PassengerId"], axis=1)
     cols = ["SibSp","Parch","Fare","Age"]
     for col in cols:
@@ -29,22 +20,19 @@ def clean(data):
 
     return data
 
-train = clean(train)
-test_train = clean(test)
+def train_model(data):
+    X_train = train.drop(['Survived'], axis=1)
+    y_train = train["Survived"]
 
-x_train = train.drop(['Survived'], axis=1)
-y_train = train["Survived"]
+    model = LogisticRegression()
 
-logModel = LogisticRegression()
-logModel.fit(x_train, y_train)
-accuracy = (logModel.score(x_train,y_train))
-print (accuracy)
+    return model.fit(X_train, y_train)
 
-y_pred = logModel.predict(test_train)
-print(y_pred.shape)
+train = clean_data(train)
+test_train = clean_data(test)
 
-submit = pd.DataFrame({"PassengerId":test["PassengerId"], "Survived": y_pred})
+model = train_model(train)
+y_test = model.predict(test_train)
 
-# line below saves output to csv
-# submit.to_csv("submit.csv", index=False)
-print(submit.head(10))
+submit = pd.DataFrame({"PassengerId":test["PassengerId"], "Survived": y_test})
+submit.to_csv("submit.csv", index=False)
