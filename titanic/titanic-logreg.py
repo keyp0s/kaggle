@@ -35,13 +35,13 @@ test_train = clean(test)
 x_train = train.drop(['Survived'], axis=1)
 y_train = train["Survived"]
 
-x_test = test_train
-
 logModel = LogisticRegression()
 logModel.fit(x_train, y_train)
-acc = (logModel.score(x_train,y_train))
+accuracy = (logModel.score(x_train,y_train))
+print (accuracy)
 
-y_pred = logModel.predict(x_test)
+y_pred = logModel.predict(test_train)
+print(y_pred.shape)
 
 submit = pd.DataFrame({"PassengerId":test["PassengerId"], "Survived": y_pred})
 

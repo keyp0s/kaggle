@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # ml framework
 from sklearn.model_selection import train_test_split 
 from tensorflow.keras.models import Sequential 
-from tensorflow.keras.layers import Dense, Flatten
+from tensorflow.keras.layers import Dense
 
 train = pd.read_csv("C:/repos/kaggle-comps/digit-recognizer/train.csv")
 test = pd.read_csv("C:/repos/kaggle-comps/digit-recognizer/test.csv")
