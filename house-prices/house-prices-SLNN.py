@@ -10,8 +10,6 @@ from sklearn.linear_model import LinearRegression
 train = pd.read_csv("C:/repos/kaggle-comps/house-prices/train.csv")
 test = pd.read_csv("C:/repos/kaggle-comps/house-prices/test.csv")
 
-#sns.histplot(train['SalePrice'])
-#plt.show()
 def clean_data(data):
     for col in data.columns:
         if data[col].dtypes == object:
@@ -21,8 +19,6 @@ def clean_data(data):
 
 train = clean_data(train)
 X_test = clean_data(test)
-
-#print (train.head())
 
 X_train = train.drop(['SalePrice'], axis=1)
 y_train = train["SalePrice"]
