@@ -1,3 +1,5 @@
+#submission for https://kaggle.com/competitions/digit-recognizer
+
 # data analysis libraries
 import pandas as pd
 import numpy as np

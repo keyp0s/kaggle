@@ -1,3 +1,5 @@
+#submission for https://kaggle.com/competitions/titanic
+
 # data analysis libraries
 import pandas as pd
 import numpy as np
@@ -51,7 +53,7 @@ model.add(Dense(1, activation='sigmoid'))
 model.compile(optimizer='RMSprop',loss='binary_crossentropy',metrics=['binary_accuracy'])
 
 # overfitting issues
-history = model.fit(X_train,y_train,epochs=2048,validation_data=(X_val, y_val))
+history = model.fit(X_train,y_train,epochs=512,validation_data=(X_val, y_val))
 
 #plotting
 acc = history.history['binary_accuracy']
